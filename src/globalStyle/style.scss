@@ -1,0 +1,21 @@
+body {
+  background-color: #000;
+  font-size: 10px;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.container {
+  background-color: #2d2d2d;
+  padding: 0;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+a {
+  text-decoration: none;
+}
