@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MovieCardMain from "./MovieCardMain";
 import "./style.scss";
-function MovieHome() {
+
+function MovieHome({ item }) {
   return (
     <div className="movie_home_wrap">
       <div className="movie_home">
-        <MovieCardMain />
-        <MovieCardMain />
-        <MovieCardMain />
-        <MovieCardMain />
-        <MovieCardMain />
+        {item?.map((item, index) => {
+          return <MovieCardMain item={item} key={index} />;
+        })}
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 body {
   background-color: #000;
-  font-size: 10px;
 }
 * {
   box-sizing: border-box;
@@ -18,4 +17,33 @@ body {
 }
 a {
   text-decoration: none;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #cac9c9;
+  display: block;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

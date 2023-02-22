@@ -1,0 +1,127 @@
+.watch_anime {
+  padding: 1rem;
+  &_header {
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    border-radius: 8px;
+    &_top {
+      display: flex;
+      padding: 1rem;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #2f2f2f;
+
+      align-items: center;
+      & > i {
+        margin-right: 1rem;
+        color: #ffca50;
+      }
+      & > h3 {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        color: #ffca50;
+      }
+    }
+    &_bottom {
+      display: flex;
+      font-size: 16px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      & > h3 {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        color: #fff;
+      }
+    }
+  }
+}
+.watch_anime_content {
+  margin-top: 2rem;
+  &_video {
+    width: 80%;
+    height: 500px;
+    margin: 0 auto;
+  }
+}
+.watch_anime_list_chap {
+  display: flex;
+  flex-wrap: wrap;
+  &_note {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 8px;
+    background-color: #404040;
+    border-radius: 8px;
+    &_header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 1rem;
+      padding-bottom: 1rem;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px dashed #ccc;
+      & > span {
+        font-size: 1rem;
+        color: #f98d8d;
+      }
+      & > i {
+        font-size: 1rem;
+        color: #f98d8d;
+        margin-right: 1rem;
+      }
+    }
+    &_footer {
+      padding: 0.5rem;
+      display: flex;
+      & > span {
+        font-size: 1rem;
+        color: #f98d8d;
+        font-weight: 800;
+      }
+    }
+  }
+  &_anime {
+    margin-top: 1rem;
+    background-color: #404040;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    &_header {
+      display: flex;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed #ccc;
+      & > span {
+        font-size: 1rem;
+        color: #f98d8d;
+        font-weight: 800;
+      }
+    }
+    &_content {
+      max-height: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      overflow-y: scroll;
+      &_item {
+        margin-top: 1rem;
+        cursor: pointer;
+        text-align: center;
+        padding: 10px 5px;
+        border: 2px solid #4e4e4e;
+        font-size: 13px;
+        width: 5%;
+        box-sizing: border-box;
+        color: #fff;
+        font-weight: 700;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Swiper from "../../Swiper/Swiper";
 import MovieHome from "../MovieHome/MovieHome";
 import "./style.scss";
-
+import { roleContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { isFailing, isLoading, isSuccess } from "../../redux/slice/auth";
+import axios from "axios";
 function Home() {
+  const [listAnime, setListAnime] = useState([]);
+  const { cache } = useContext(roleContext);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let here = true;
+    const url = "api/anime";
+    if (cache.current[url]) {
+      console.log(cache);
+      return setListAnime(cache.current[url]);
+    }
+    dispatch(isLoading());
+    axios
+      .get(url)
+      .then((res) => {
+        if (!here) {
+          return;
+        }
+        setListAnime(res?.data);
+        cache.current[url] = res?.data;
+        dispatch(isSuccess());
+      })
+      .catch((err) => {
+        dispatch(isFailing());
+      });
+    return () => {
+      here = false;
+    };
+  }, []);
   return (
     <div className="container-fluid home_nav">
       <div className=" home_nav_title">
@@ -34,7 +65,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <MovieHome />
+      <MovieHome item={listAnime} />
     </div>
   );
 }

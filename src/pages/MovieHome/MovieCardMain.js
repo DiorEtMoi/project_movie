@@ -1,22 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
 
-function MovieCardMain() {
+function MovieCardMain({ item, key }) {
+  const navigate = useNavigate();
+  const hanleClickCard = () => {
+    navigate(`/movie/${item._id}`);
+  };
   return (
-    <div className="movie_card_main_wrap">
-      <Link to="/movie/asd">
-        <div className="movie_card_main">
-          <div className="movie_card_main_top">
-            <img src="https://animehay.pro/upload/poster/3518-1659146047.jpg" />
-          </div>
-          <span className="movie_card_main_chap">1/10</span>
-          <span className="movie_card_main_rate">10</span>
-          <div className="movie_card_main_footer">
-            <h3>Đấu Phá Thương Khung</h3>
-          </div>
+    <div className="movie_card_main_wrap" key={key} onClick={hanleClickCard}>
+      <div className="movie_card_main">
+        <div className="movie_card_main_top">
+          <img src={item?.image} />
         </div>
-      </Link>
+        <span className="movie_card_main_chap">
+          {item?.chapAnime.length} / {item?.totalChap}
+        </span>
+        <span className="movie_card_main_rate">10</span>
+        <div className="movie_card_main_footer">
+          <h3>{item.name}</h3>
+        </div>
+      </div>
     </div>
   );
 }
