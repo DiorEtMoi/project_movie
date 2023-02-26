@@ -16,7 +16,7 @@ function MovieCardMain({ item, key }) {
         <span className="movie_card_main_chap">
           {item?.chapAnime.length} / {item?.totalChap}
         </span>
-        <span className="movie_card_main_rate">10</span>
+        <span className="movie_card_main_rate">{item?.totalRate}</span>
         <div className="movie_card_main_footer">
           <h3>{item.name}</h3>
         </div>

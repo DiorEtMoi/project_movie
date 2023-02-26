@@ -1,3 +1,4 @@
+@import "../../../style.module.scss";
 .movie_home {
   display: flex;
   flex-wrap: wrap;
@@ -5,6 +6,9 @@
 .movie_card_main_wrap {
   display: flex;
   flex-direction: column;
+  @include mobile {
+    width: 50%;
+  }
   width: 20%;
   position: relative;
   box-sizing: border-box;
@@ -65,5 +69,8 @@
   background-color: #404040;
   padding: 10px;
   border-radius: 5px;
+  margin-top: 1rem;
+}
+.paging {
   margin-top: 1rem;
 }

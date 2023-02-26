@@ -1,6 +1,6 @@
 // import Swiper core and required modules
 import { Pagination, A11y, Autoplay } from "swiper";
-
+import "./style.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -10,43 +10,33 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import MovieCard from "../card/MovieCard/MovieCard";
 
-export default () => {
+export default ({ item }) => {
   return (
     <Swiper
       // install Swiper modules
       modules={[Pagination, A11y, Autoplay]}
       spaceBetween={30}
-      slidesPerView={5}
+      breakpoints={{
+        375: {
+          slidesPerView: 1,
+        },
+        750: {
+          slidesPerView: 5,
+        },
+      }}
       pagination
       autoplay={{
         delay: 2000,
         disableOnInteraction: false,
       }}
     >
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
-      <SwiperSlide>
-        <MovieCard />
-      </SwiperSlide>
+      {item?.map((ite, index) => {
+        return (
+          <SwiperSlide>
+            <MovieCard ite={ite} />
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };

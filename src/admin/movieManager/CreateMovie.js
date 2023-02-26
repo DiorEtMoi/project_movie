@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { roleContext } from "../../App";
 import { isFailing, isLoading, isSuccess } from "../../redux/slice/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const animatedComponents = makeAnimated();
 function CreateMovie() {
@@ -27,6 +27,7 @@ function CreateMovie() {
   const dispatch = useDispatch();
   const [optionsKind, setOptionKind] = useState({});
   const [choiceType, setChoiceType] = useState();
+  const auth = useSelector((state) => state?.auth);
   useEffect(() => {
     if (listType) {
       const arr = listType?.map((item) => {
@@ -53,7 +54,6 @@ function CreateMovie() {
         if (!here) {
           return;
         }
-        console.log(res?.data);
         setListType(res?.data);
         cache.current[url] = res?.data;
         dispatch(isSuccess());
@@ -89,7 +89,6 @@ function CreateMovie() {
           "https://api.cloudinary.com/v1_1/db7xtr0t6/image/upload",
           formData
         );
-        console.log(res);
         image = res?.data?.url;
       } catch (error) {
         console.log(error);
@@ -105,15 +104,24 @@ function CreateMovie() {
 
     console.log({ name, content, date, totalChap, image, typeAnime: choice });
     try {
-      const res = await axios.post("api/anime/create", {
-        name,
-        content,
-        date,
-        totalChap,
-        image,
-        typeAnime: choice,
-      });
+      const res = await axios.post(
+        "api/anime/create",
+        {
+          name,
+          content,
+          date,
+          totalChap,
+          image,
+          typeAnime: choice,
+        },
+        {
+          headers: {
+            token: `Bearer ${auth?.user?.token}`,
+          },
+        }
+      );
       cache.current["api/anime"].push(res?.data);
+      console.log(res?.data);
       dispatch(isSuccess());
       toast.success("Create Success");
     } catch (error) {

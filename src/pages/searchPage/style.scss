@@ -1,0 +1,29 @@
+.search_page {
+  display: flex;
+  & > div {
+    width: 100%;
+  }
+}
+.title_search {
+  display: flex;
+  flex-wrap: wrap;
+}
+.title_new_search {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  padding: 0 1rem;
+  background-color: #404040;
+  border-radius: 10px;
+  align-content: center;
+  & > h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    height: 100%;
+    color: #ccc;
+    padding: 10px 0;
+  }
+}
+.title_search_contain {
+  width: 100%;
+}

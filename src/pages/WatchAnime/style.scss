@@ -1,3 +1,4 @@
+@import "../../../style.module.scss";
 .watch_anime {
   padding: 1rem;
   &_header {
@@ -115,6 +116,9 @@
         border: 2px solid #4e4e4e;
         font-size: 13px;
         width: 5%;
+        @include mobile {
+          width: 10%;
+        }
         box-sizing: border-box;
         color: #fff;
         font-weight: 700;

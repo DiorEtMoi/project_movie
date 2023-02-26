@@ -3,18 +3,28 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./style.scss";
 import { roleContext } from "../../App";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isFailing, isLoading, isSuccess } from "../../redux/slice/auth";
+import Rating from "../../rating/Rating";
 function MovieDetail() {
   const { cache } = useContext(roleContext);
-  const slug = useParams();
+  const { slug } = useParams();
   const dispatch = useDispatch();
   const [anime, setAnime] = useState();
   const [listChap, setListChap] = useState([]);
   const navigate = useNavigate();
+  const [status, setStatus] = useState("Chưa Hoàn Thành");
+  const auth = useSelector((state) => state?.auth);
+  useEffect(() => {
+    if (anime) {
+      if (anime?.totalChap === anime?.chapAnime.length.toString()) {
+        setStatus("Hoàn Thành");
+      }
+    }
+  }, [anime]);
   useEffect(() => {
     let here = true;
-    const url = `api/anime/${slug.slug}`;
+    const url = `api/anime/anime_detail/${slug}`;
     if (cache.current[url]) {
       console.log(cache);
       setListChap(cache?.current[url].chapAnime);
@@ -29,6 +39,7 @@ function MovieDetail() {
         }
         setListChap(res?.data?.chapAnime);
         setAnime(res?.data);
+        console.log(res?.data);
         cache.current[url] = res?.data;
         dispatch(isSuccess());
       })
@@ -63,7 +74,7 @@ function MovieDetail() {
             </div>
             <div className="movie_status">
               <span>Trạng Thái</span>
-              <div>Chưa Hoàn thành</div>
+              <div>{status}</div>
             </div>
             <div className="movie_date">
               <span>Ngày ra mắt</span>
@@ -72,6 +83,10 @@ function MovieDetail() {
             <div className="movie_chap">
               <span>Thời lượng</span>
               <div>{anime?.totalChap} tập</div>
+            </div>
+            <div className="movie_date">
+              <span>Đánh giá</span>
+              <div>{anime?.totalRate}</div>
             </div>
           </div>
         </div>
@@ -94,6 +109,7 @@ function MovieDetail() {
           </div>
         </div>
         <div className="movie_detail_body_right">
+          <Rating _id={anime?._id} />
           <div className="movie_detail_body_right_header">Nội dung</div>
           <div className="movie_detail_body_right_content">
             <p>{anime?.content}</p>

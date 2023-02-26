@@ -65,7 +65,6 @@
 }
 .manageCourse_table {
   margin-top: 3rem;
-  width: 80%;
   margin: 0 auto;
 }
 .table {
@@ -107,6 +106,8 @@
 .row_card {
   height: 5rem;
   font-size: 1.4rem;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.3);
+
   & > td {
     border-right: 0.1rem solid rgba(0, 0, 0, 0.3);
   }
@@ -224,4 +225,9 @@
       transform: scale(1.2);
     }
   }
+}
+.upload_video {
+  background-color: #ccc;
+  padding: 1rem;
+  min-height: 400px;
 }

@@ -87,7 +87,11 @@ function WatchAnime() {
             {anime?.chapAnime?.map((item, index) => {
               return (
                 <div
-                  className="watch_anime_list_chap_anime_content_item"
+                  className={
+                    chap?.name == index + 1
+                      ? "watch_anime_list_chap_anime_content_item active"
+                      : "watch_anime_list_chap_anime_content_item "
+                  }
                   key={index}
                   onClick={() => handleChooseAnime(item)}
                 >

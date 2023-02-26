@@ -17,7 +17,7 @@ function adminPage({ children }) {
                   <button>Movie Manager</button>
                 </Link>
                 <Link to="/admin/type_manager">
-                  <button>Movie Manager</button>
+                  <button>Type Create</button>
                 </Link>
               </div>
             </div>
