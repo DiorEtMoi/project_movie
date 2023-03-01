@@ -22,6 +22,8 @@ function WatchAnime() {
     if (cache.current[url]) {
       console.log(cache);
       setChap(cache?.current[url]);
+      window.document.title = `Đang xem ${cache?.current[url]?.anime?.name}`;
+
       return setAnime(cache?.current[url]?.anime);
     }
     dispatch(isLoading());
@@ -34,6 +36,7 @@ function WatchAnime() {
         setChap(res?.data);
         setAnime(res?.data?.anime);
         cache.current[url] = res?.data;
+        window.document.title = `Đang xem ${res?.data?.anime?.name}`;
         dispatch(isSuccess());
       })
       .catch((err) => {

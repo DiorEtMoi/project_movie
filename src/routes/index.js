@@ -9,6 +9,7 @@ import AdminPage from "../layout/DefaultLayout/AdminPage";
 import Home from "../pages/Home/Home";
 import MovieDetail from "../pages/MovieDetail/MovieDetail";
 import SearchPage from "../pages/searchPage/SearchPage";
+import TypeAnime from "../pages/typeAnime/TypeAnime";
 import WatchAnime from "../pages/WatchAnime/WatchAnime";
 import MarkAnime from "../userPage/MarkAnime";
 export const publicRoutes = [
@@ -39,6 +40,11 @@ export const publicRoutes = [
   {
     path: "/register",
     element: Register,
+  },
+  {
+    path: "/type/:slug",
+    element: TypeAnime,
+    layout: DefaultLayout,
   },
 ];
 export const privatesRoutes = [

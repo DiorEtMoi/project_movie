@@ -28,6 +28,8 @@ function MovieDetail() {
     if (cache.current[url]) {
       console.log(cache);
       setListChap(cache?.current[url].chapAnime);
+      window.document.title = `Đang xem ${cache?.current[url]?.name}`;
+
       return setAnime(cache?.current[url]);
     }
     dispatch(isLoading());
@@ -41,6 +43,7 @@ function MovieDetail() {
         setAnime(res?.data);
         console.log(res?.data);
         cache.current[url] = res?.data;
+        window.document.title = `Đang xem ${res?.data?.name}`;
         dispatch(isSuccess());
       })
       .catch((err) => {
@@ -68,7 +71,15 @@ function MovieDetail() {
               <span>Thể loại</span>
               <ul className="movie_type_list">
                 {anime?.typeAnime?.map((ite, index) => {
-                  return <li key={index}>{ite?.typeName}</li>;
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => navigate(`/type/${ite?._id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {ite?.typeName}
+                    </li>
+                  );
                 })}
               </ul>
             </div>

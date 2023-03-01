@@ -121,9 +121,9 @@ function CreateMovie() {
         }
       );
       cache.current["api/anime"].push(res?.data);
-      console.log(res?.data);
-      dispatch(isSuccess());
       toast.success("Create Success");
+      console.log(res?.data);
+      return dispatch(isSuccess());
     } catch (error) {
       dispatch(isFailing());
       return toast.error(error);

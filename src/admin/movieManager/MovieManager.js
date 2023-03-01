@@ -6,45 +6,74 @@ import { useDispatch } from "react-redux";
 import { isFailing, isLoading, isSuccess } from "../../redux/slice/auth";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import Pagination from "../../pagingnation/Pagination";
+
 function MovieManager() {
   const [listAnime, setListAnime] = useState([]);
   const { cache } = useContext(roleContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [total, setTotal] = useState();
   const handleCreateMovie = () => {
     navigate("/admin/create_movie");
   };
-  useEffect(() => {
-    let here = true;
-    const url = "api/anime";
-    if (cache.current[url]) {
-      console.log(cache.current[url]);
-      return setListAnime(cache.current[url]);
+  const handleFind = async () => {
+    try {
+      dispatch(isLoading());
+      const res = await axios.get(`/api/anime/search?name=${search}`);
+      setListAnime(res?.data);
+      console.log(res);
+      dispatch(isSuccess());
+    } catch (error) {
+      dispatch(isFailing());
     }
-    dispatch(isLoading());
-    axios
-      .get(url)
-      .then((res) => {
-        if (!here) {
-          return;
-        }
-        setListAnime(res?.data);
-        cache.current[url] = res?.data;
-        dispatch(isSuccess());
-      })
-      .catch((err) => {
-        dispatch(isFailing());
-      });
-    return () => {
-      here = false;
-    };
-  }, []);
+  };
+  useEffect(() => {
+    if (!search) {
+      let here = true;
+      const url = `api/anime/home?page=${page}`;
+      if (cache.current[url]) {
+        console.log(cache);
+        setPage(cache.current[url]?.page);
+        setTotal(cache.current[url]?.totalPage);
+        return setListAnime(cache.current[url]?.animes);
+      }
+      dispatch(isLoading());
+      axios
+        .get(url)
+        .then((res) => {
+          if (!here) {
+            return;
+          }
+          setListAnime(res?.data?.animes);
+          setPage(res?.data?.page);
+          setTotal(res?.data?.totalPage);
+          console.log(res?.data);
+          cache.current[url] = res?.data;
+          dispatch(isSuccess());
+        })
+        .catch((err) => {
+          dispatch(isFailing());
+          toast.error(err?.response?.data);
+        });
+      return () => {
+        here = false;
+      };
+    }
+  }, [page]);
   return (
     <div className="movie_table">
       <div className="movie_table_header">
         <h3>Movie</h3>
         <div>
           <button onClick={handleCreateMovie}> New Movie</button>
+          <div className="search">
+            <input onChange={(e) => setSearch(e.target.value)} value={search} />
+            <i class="fa-solid fa-magnifying-glass" onClick={handleFind}></i>
+          </div>
         </div>
       </div>
       <div className="manageCourse_table">
@@ -63,6 +92,9 @@ function MovieManager() {
             })}
           </tbody>
         </table>
+        <div className="paging" style={{ marginBottom: "1rem" }}>
+          <Pagination totalPage={total} page={page} setPage={setPage} />
+        </div>
       </div>
     </div>
   );

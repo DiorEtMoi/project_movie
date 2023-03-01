@@ -84,13 +84,14 @@ function Rating({ _id }) {
         _id: auth?.user?._id,
         animeID: _id,
       });
+      console.log(res?.data);
       cache.current[`api/mark?_id=${auth?.user?._id}`] =
         res?.data?.loveAnime?.loveAnime;
       dispatch(isSuccess());
       return toast.success(res?.data?.msg);
     } catch (error) {
       dispatch(isFailing());
-      return toast.error(error?.response?.data);
+      return toast.warning(error?.response?.data);
     }
   };
   return (

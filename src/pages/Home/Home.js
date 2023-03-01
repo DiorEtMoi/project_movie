@@ -6,7 +6,7 @@ import { roleContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import { isFailing, isLoading, isSuccess } from "../../redux/slice/auth";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 function Home() {
   const [listAnime, setListAnime] = useState([]);
@@ -16,6 +16,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
+    window.document.title = "Xem phim tại Animene";
     let here = true;
     const url = "api/anime/swiper";
     if (cache.current[url]) {
@@ -42,6 +43,11 @@ function Home() {
     };
   }, []);
   useEffect(() => {
+    window.scroll({
+      top: 100,
+      left: 0,
+      behavior: "smooth",
+    });
     let here = true;
     const url = `api/anime/home?page=${page}`;
     if (cache.current[url]) {

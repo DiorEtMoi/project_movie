@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import jwtDecode from "jwt-decode";
+import NotFound from "./notFound/NotFound";
 export const roleContext = createContext();
 function App() {
   const [store, setStore] = useState({ role: "admin" });
@@ -77,6 +78,7 @@ function App() {
                   <Route path={item.path} element={<Page />} key={index} />
                 );
               })}
+            <Route path="*" element={<NotFound />} />
           </Routes>
           {auth.loading && <Loading />}
         </Router>
